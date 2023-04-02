@@ -57,5 +57,23 @@ namespace BrightHRKataCheckout.Tests
             //Assert
             Assert.That(expected, Is.EqualTo(total));
         }
+
+        [Test]
+        public void CheckoutScansThreeAsAndGetsDiscount()
+        {
+            //Arrange
+            var checkout = new Checkout();
+            var result = 130;
+
+            //Act
+            checkout.Scan(new Sku { Name = "A", Price = 50 });
+            checkout.Scan(new Sku { Name = "A", Price = 50 });
+            checkout.Scan(new Sku { Name = "A", Price = 50 });
+            var total = checkout.GetTotal();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(total));
+
+        }
     }
 }
