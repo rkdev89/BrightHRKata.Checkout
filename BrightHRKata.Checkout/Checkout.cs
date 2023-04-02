@@ -1,4 +1,5 @@
 ﻿using BrightHRKata.Checkout;
+using BrightHRKata.Checkout.Services;
 using System.Reflection.Metadata.Ecma335;
 
 namespace BrightHRKataCheckout.Tests
@@ -7,21 +8,21 @@ namespace BrightHRKataCheckout.Tests
     {
         private readonly List<Sku> _skuList;
         private readonly List<Discount> _discountList;
+        private readonly ValidSkus _validSkus;
 
         public Checkout()
         {
+            _validSkus = new ValidSkus();
             _skuList = new List<Sku>();
             _discountList = new List<Discount>();
         }
 
         public void Scan(Sku sku)
         {
-            if (sku == null) 
-            {
-                throw new ArgumentNullException(nameof(sku));
+            if (_validSkus.SkuList.Exists(s => s.Name == sku.Name && s.Price == sku.Price))
+            { 
+                _skuList.Add(sku);
             }
-
-            _skuList.Add(sku);
         }
 
         public int GetTotal()
