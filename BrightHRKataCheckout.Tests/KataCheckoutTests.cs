@@ -1,3 +1,5 @@
+using BrightHRKata.Checkout;
+
 namespace BrightHRKataCheckout.Tests
 {
     public class KataCheckoutTests
@@ -8,31 +10,31 @@ namespace BrightHRKataCheckout.Tests
         }
 
         [Test]
-        [TestCase("",0)]
-        public void CheckoutReceivesEmptyStringReturnsZero(string item, int price)
+        public void CheckoutReceivesEmptyStringReturnsZero()
         {
             //Arrange
+            var price = 0;
             var checkout = new Checkout();
+            var skuNull = new Sku { Name = "", Price = 0 };
 
             //Act
-            checkout.Scan(item);
+            checkout.Scan(skuNull);
 
             //Assert
             Assert.That(price, Is.EqualTo(0));
         }
 
         [Test]
-        [TestCase("A", 50)]
-        [TestCase("B", 30)]
-        [TestCase("C", 20)]
-        [TestCase("D", 15)]
-        public void CheckoutReceivesSingleItemAndReturnsPrice(string item, int price)
+        public void CheckoutReceivesSingleItemAndReturnsPrice()
         {
+
             //Arrange
+            var price = 50;
             var checkout = new Checkout();
+            var skuA = new Sku { Name = "A", Price = 50 };
 
             //Act
-           var result = checkout.Scan(item);
+           var result = checkout.Scan(skuA);
 
             //Assert
             Assert.That(price, Is.EqualTo(result));
