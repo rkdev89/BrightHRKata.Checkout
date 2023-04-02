@@ -8,7 +8,8 @@ namespace BrightHRKataCheckout.Tests
         }
 
         [Test]
-        public void CheckoutReceivesEmptyStringReturnsZero()
+        [TestCase("",0)]
+        public void CheckoutReceivesEmptyStringReturnsZero(string item, int price)
         {
             //Arrange
             var checkout = new Checkout();
@@ -17,7 +18,7 @@ namespace BrightHRKataCheckout.Tests
             checkout.Scan(item);
 
             //Assert
-            Assert.Fail();
+            Assert.That(price, Is.EqualTo(0));
         }
     }
 }
