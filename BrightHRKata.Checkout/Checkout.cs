@@ -10,6 +10,7 @@ namespace BrightHRKataCheckout.Tests
             {
                 return 0;
             }
+
             return item.Price;
         }
     }
