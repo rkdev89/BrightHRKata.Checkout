@@ -39,5 +39,11 @@ namespace BrightHRKataCheckout.Tests
             //Assert
             Assert.That(price, Is.EqualTo(result));
         }
+
+        [Test]
+        public void CheckoutReceivesMultipleItemsWithoutDiscountAndReturnsPrice()
+        {
+            Assert.Fail();
+        }
     }
 }
