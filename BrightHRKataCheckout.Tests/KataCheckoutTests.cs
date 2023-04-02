@@ -10,7 +10,7 @@ namespace BrightHRKataCheckout.Tests
         }
 
         [Test]
-        public void CheckoutReceivesEmptyStringReturnsZero()
+        public void CheckoutReceivesNullItemReturnsZero()
         {
             //Arrange
             var checkout = new Checkout();

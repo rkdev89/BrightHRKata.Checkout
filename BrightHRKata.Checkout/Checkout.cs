@@ -1,4 +1,5 @@
 ﻿using BrightHRKata.Checkout;
+using System.Reflection.Metadata.Ecma335;
 
 namespace BrightHRKataCheckout.Tests
 {
@@ -15,7 +16,7 @@ namespace BrightHRKataCheckout.Tests
         {
             if (item == null) 
             {
-                throw new ArgumentNullException(item.Name);
+                throw new ArgumentNullException(nameof(item));
             }
 
             _itemsList.Add(item);
