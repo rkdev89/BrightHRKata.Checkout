@@ -66,6 +66,7 @@ namespace BrightHRKataCheckout.Tests
             var result = 130;
 
             //Act
+            checkout.AddDiscount(new Discount { SkuName = "A", Threshold = 3, Value = 20});
             checkout.Scan(new Sku { Name = "A", Price = 50 });
             checkout.Scan(new Sku { Name = "A", Price = 50 });
             checkout.Scan(new Sku { Name = "A", Price = 50 });

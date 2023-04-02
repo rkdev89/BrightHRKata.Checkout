@@ -26,5 +26,6 @@ namespace BrightHRKataCheckout.Tests
         {
             return _itemsList.Sum(sku => sku.Price);
         }
+
     }
 }
