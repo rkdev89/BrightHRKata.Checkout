@@ -33,7 +33,8 @@ namespace BrightHRKataCheckout.Tests
             var skuA = new Sku { Name = "A", Price = 50 };
 
             //Act
-           var result = checkout.Scan(skuA);
+            checkout.Scan(skuA);
+            var result = checkout.GetTotal();
 
             //Assert
             Assert.That(skuA.Price, Is.EqualTo(result));
@@ -43,18 +44,19 @@ namespace BrightHRKataCheckout.Tests
         public void CheckoutReceivesMultipleItemsWithoutDiscountAndReturnsPrice()
         {
             //Arrange
-            var total = 80;
+            var expected = 80;
             var checkout = new Checkout();
             var skuA = new Sku { Name = "A", Price = 50 };
             var skuB = new Sku { Name = "A", Price = 30 };
-            var skuTotal = skuA.Price + skuB.Price;
+            
 
             //Act
             checkout.Scan(skuA);
             checkout.Scan(skuB);
+            var total = checkout.GetTotal();
 
             //Assert
-            Assert.That(total, Is.EqualTo(skuTotal));
+            Assert.That(expected, Is.EqualTo(total));
         }
     }
 }
