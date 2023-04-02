@@ -47,7 +47,7 @@ namespace BrightHRKataCheckout.Tests
             var expected = 80;
             var checkout = new Checkout();
             var skuA = new Sku { Name = "A", Price = 50 };
-            var skuB = new Sku { Name = "A", Price = 30 };
+            var skuB = new Sku { Name = "B", Price = 30 };
 
             //Act
             checkout.Scan(skuA);
