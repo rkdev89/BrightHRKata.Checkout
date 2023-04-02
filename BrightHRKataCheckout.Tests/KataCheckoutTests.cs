@@ -74,7 +74,6 @@ namespace BrightHRKataCheckout.Tests
 
             //Assert
             Assert.That(result, Is.EqualTo(total));
-
         }
     }
 }
