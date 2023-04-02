@@ -2,12 +2,12 @@
 using BrightHRKata.Checkout.Services;
 using System.Reflection.Metadata.Ecma335;
 
-namespace BrightHRKataCheckout.Tests
+namespace BrightHRKataCheckout
 {
-    public class Checkout
+    public class Checkout : ICheckout
     {
-        private readonly List<Sku> _skuList;
-        private readonly List<Discount> _discountList;
+        private readonly ICollection<Sku> _skuList;
+        private readonly ICollection<Discount> _discountList;
         private readonly ValidSkus _validSkus;
 
         public Checkout()
@@ -17,12 +17,13 @@ namespace BrightHRKataCheckout.Tests
             _discountList = new List<Discount>();
         }
 
-        public void Scan(Sku sku)
+        public ICheckout Scan(Sku sku)
         {
             if (_validSkus.SkuList.Exists(s => s.Name == sku.Name && s.Price == sku.Price))
             { 
                 _skuList.Add(sku);
             }
+            return this;
         }
 
         public int GetTotal()
@@ -38,7 +39,7 @@ namespace BrightHRKataCheckout.Tests
             _discountList.Add(discount);
         }
 
-        public int CalculateDiscount(Discount discount, List<Sku> skus)
+        public int CalculateDiscount(Discount discount, ICollection<Sku> skus)
         {
             int countOfSkus = skus.Count(sku => sku.Name == discount.SkuName);
             return (countOfSkus / discount.Threshold) * discount.Value;

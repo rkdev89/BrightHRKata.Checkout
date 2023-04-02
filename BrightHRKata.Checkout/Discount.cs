@@ -1,4 +1,4 @@
-﻿namespace BrightHRKataCheckout.Tests
+﻿namespace BrightHRKataCheckout
 {
     public class Discount
     {

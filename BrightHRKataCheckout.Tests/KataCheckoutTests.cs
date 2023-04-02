@@ -14,10 +14,9 @@ namespace BrightHRKataCheckout.Tests
         {
             //Arrange
             var checkout = new Checkout();
-            var skuNull = new Sku { Name = ""};
 
             //Act
-            checkout.Scan(skuNull);
+            checkout.Scan(new Sku { Name = "" });
             var result = checkout.GetTotal();
 
             //Assert
@@ -27,35 +26,32 @@ namespace BrightHRKataCheckout.Tests
         [Test]
         public void CheckoutReceivesSingleItemAndReturnsPrice()
         {
-
             //Arrange
             var checkout = new Checkout();
-            var skuA = new Sku { Name = "A", Price = 50 };
 
             //Act
-            checkout.Scan(skuA);
+            checkout.Scan(new Sku { Name = "A", Price = 50 });
             var result = checkout.GetTotal();
 
             //Assert
-            Assert.That(skuA.Price, Is.EqualTo(result));
+            Assert.That(result, Is.EqualTo(50));
         }
 
         [Test]
         public void CheckoutReceivesMultipleItemsWithoutDiscountAndReturnsPrice()
         {
             //Arrange
-            var expected = 80;
             var checkout = new Checkout();
-            var skuA = new Sku { Name = "A", Price = 50 };
-            var skuB = new Sku { Name = "B", Price = 30 };
 
             //Act
-            checkout.Scan(skuA);
-            checkout.Scan(skuB);
+            checkout
+                .Scan(new Sku { Name = "A", Price = 50 })
+                .Scan(new Sku { Name = "B", Price = 30 });
+
             var total = checkout.GetTotal();
 
             //Assert
-            Assert.That(expected, Is.EqualTo(total));
+            Assert.That(total, Is.EqualTo(80));
         }
 
         [Test]
@@ -63,17 +59,19 @@ namespace BrightHRKataCheckout.Tests
         {
             //Arrange
             var checkout = new Checkout();
-            var result = 130;
 
             //Act
             checkout.AddDiscount(new Discount { SkuName = "A", Threshold = 3, Value = 20});
-            checkout.Scan(new Sku { Name = "A", Price = 50 });
-            checkout.Scan(new Sku { Name = "A", Price = 50 });
-            checkout.Scan(new Sku { Name = "A", Price = 50 });
+
+            checkout
+                .Scan(new Sku { Name = "A", Price = 50 })
+                .Scan(new Sku { Name = "A", Price = 50 })
+                .Scan(new Sku { Name = "A", Price = 50 });
+
             var total = checkout.GetTotal();
 
             //Assert
-            Assert.That(result, Is.EqualTo(total));
+            Assert.That(total, Is.EqualTo(130));
         }
 
         [Test]
@@ -81,16 +79,18 @@ namespace BrightHRKataCheckout.Tests
         {
             //Arrange
             var checkout = new Checkout();
-            var result = 45;
 
             //Act
             checkout.AddDiscount(new Discount { SkuName = "B", Threshold = 2, Value = 15 });
-            checkout.Scan(new Sku { Name = "B", Price = 30 });
-            checkout.Scan(new Sku { Name = "B", Price = 30 });
+
+            checkout
+                .Scan(new Sku { Name = "B", Price = 30 })
+                .Scan(new Sku { Name = "B", Price = 30 });
+
             var total = checkout.GetTotal();
 
             //Assert
-            Assert.That(result, Is.EqualTo(total));
+            Assert.That(total, Is.EqualTo(45));
         }
 
         [Test]
@@ -98,20 +98,21 @@ namespace BrightHRKataCheckout.Tests
         {
             //Arrange
             var checkout = new Checkout();
-            var result = 175;
 
             //Act
             checkout.AddDiscount(new Discount { SkuName = "A", Threshold = 3, Value = 20 });
             checkout.AddDiscount(new Discount { SkuName = "B", Threshold = 2, Value = 15 });
-            checkout.Scan(new Sku { Name = "A", Price = 50 });
-            checkout.Scan(new Sku { Name = "A", Price = 50 });
-            checkout.Scan(new Sku { Name = "A", Price = 50 });
-            checkout.Scan(new Sku { Name = "B", Price = 30 });
-            checkout.Scan(new Sku { Name = "B", Price = 30 });
+
+            checkout.Scan(new Sku { Name = "A", Price = 50 })
+                    .Scan(new Sku { Name = "A", Price = 50 })
+                    .Scan(new Sku { Name = "A", Price = 50 })
+                    .Scan(new Sku { Name = "B", Price = 30 })
+                    .Scan(new Sku { Name = "B", Price = 30 });
+
             var total = checkout.GetTotal();
 
             //Assert
-            Assert.That(result, Is.EqualTo(total));
+            Assert.That(total, Is.EqualTo(175));
         }
     }
 }
