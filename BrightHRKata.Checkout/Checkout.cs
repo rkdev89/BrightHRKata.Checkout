@@ -34,9 +34,10 @@ namespace BrightHRKataCheckout
             return grossTotal - discountTotal;
         }
 
-        public void AddDiscount(Discount discount)
+        public ICheckout AddDiscount(Discount discount)
         {
             _discountList.Add(discount);
+            return this;
         }
 
         public int CalculateDiscount(Discount discount, ICollection<Sku> skus)
